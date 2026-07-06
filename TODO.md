@@ -6,3 +6,4 @@
 - [x] 驗證 HTML 結構、頁數與 JavaScript 語法。
 - [ ] 在瀏覽器逐頁檢查桌面版面與操作（目前受系統權限限制）。
 - [ ] 檢查窄螢幕響應式版面（目前受系統權限限制）。
+- [x] 將網站推送至公開 GitHub repository，並啟用 GitHub Pages。
