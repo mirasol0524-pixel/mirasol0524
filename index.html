@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>學習的問題很古老</title>
+  <style>
+    :root { --bg:#fffdf8; --panel:#f2f4f6; --text:#172536; --muted:#526274; --line:#c8d0d8; --a:#cf4f49; --b:#9a6a00; --c:#16785f; --d:#356fc0; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--text); font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    body { counter-reset:slide; }
+    .deck { width:100%; height:100%; }
+    .slide { position:absolute; inset:0; display:grid; grid-template-rows:auto 1fr auto; gap:3vh; padding:7vh 7vw 4vh; opacity:0; pointer-events:none; transform:translateX(4%); transition:opacity .32s ease, transform .32s ease; counter-increment:slide; }
+    .slide.active { opacity:1; pointer-events:auto; transform:none; }
+    .eyebrow { color:var(--muted); font-size:clamp(13px,1.2vw,20px); font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+    h1,h2,p { margin:0; }
+    h1 { max-width:1050px; font-size:clamp(44px,6.7vw,105px); line-height:1.04; letter-spacing:-.045em; }
+    h2 { max-width:1050px; font-size:clamp(34px,4.5vw,74px); line-height:1.08; letter-spacing:-.035em; }
+    .lead { max-width:950px; color:var(--muted); font-size:clamp(20px,2.2vw,36px); line-height:1.55; }
+    .hero { display:flex; flex-direction:column; justify-content:center; gap:4vh; }
+    .question { color:var(--a); }
+    .footer { display:flex; align-items:center; justify-content:space-between; color:#738090; font-size:13px; letter-spacing:.08em; }
+    .footer::after { content:counter(slide, decimal-leading-zero) " / 10"; }
+    .progress { position:fixed; z-index:20; left:0; bottom:0; height:4px; width:10%; background:linear-gradient(90deg,var(--a),var(--d)); transition:width .3s ease; }
+    .chips { display:flex; flex-wrap:wrap; gap:12px; }
+    .chip { padding:10px 16px; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:clamp(14px,1.3vw,21px); }
+    .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-self:center; }
+    .card { min-height:250px; padding:28px; border:1px solid var(--line); border-radius:22px; background:linear-gradient(145deg,#fff,#eef1f4); display:flex; flex-direction:column; gap:18px; justify-content:space-between; }
+    .card .n { font-size:14px; font-weight:800; letter-spacing:.12em; }
+    .card h3 { margin:0; font-size:clamp(22px,2.2vw,36px); line-height:1.2; }
+    .card p { color:var(--muted); font-size:clamp(15px,1.3vw,21px); line-height:1.55; }
+    .a{color:var(--a)} .b{color:var(--b)} .c{color:var(--c)} .d{color:var(--d)}
+    .split { display:grid; grid-template-columns:1.05fr .95fr; gap:6vw; align-items:center; }
+    .stack { display:flex; flex-direction:column; gap:2.5vh; }
+    .bigword { font-size:clamp(64px,10vw,160px); font-weight:900; letter-spacing:-.07em; line-height:1.08; }
+    .rule { height:1px; background:var(--line); }
+    .principle { font-size:clamp(23px,2.4vw,40px); line-height:1.42; }
+    .flow { display:flex; align-items:center; justify-content:center; gap:1.5vw; }
+    .node { width:clamp(120px,15vw,230px); aspect-ratio:1.15; display:grid; place-content:center; text-align:center; border:1px solid var(--line); border-radius:50%; background:var(--panel); font-size:clamp(20px,2vw,34px); font-weight:800; }
+    .arrow { color:#536170; font-size:3vw; }
+    .check { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .check > div { padding:24px 28px; border-left:5px solid currentColor; background:var(--panel); border-radius:0 16px 16px 0; }
+    .check strong { display:block; color:var(--text); font-size:clamp(20px,2vw,32px); margin-bottom:8px; }
+    .check span { color:var(--muted); font-size:clamp(15px,1.25vw,20px); line-height:1.5; }
+    .quote { max-width:1150px; font-size:clamp(31px,4.2vw,68px); line-height:1.3; font-weight:800; letter-spacing:-.03em; }
+    .hint { position:fixed; z-index:20; right:24px; top:20px; color:#617080; font-size:12px; }
+    @media (max-width:800px), (orientation:portrait) { .grid4{grid-template-columns:repeat(2,1fr)} .card{min-height:180px} .split{grid-template-columns:1fr}.bigword{font-size:20vw}.flow{flex-direction:column;gap:1vh}.arrow{transform:rotate(90deg);font-size:28px;line-height:1}.check{grid-template-columns:1fr}.hint{display:none} }
+    @media (prefers-reduced-motion:reduce) { .slide,.progress{transition:none} }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-live="polite">
+    <section class="slide active"><div class="eyebrow">Learning, stripped to its core</div><div class="hero"><h1>學習的問題<br><span class="question">其實很古老</span></h1><p class="lead">從認知科學看，學生始終只有四種學習困難。</p></div><div class="footer"><span>教育 × 認知科學</span></div></section>
+    <section class="slide"><div class="eyebrow">01 — 問題不是名詞不夠多</div><div class="hero"><div class="chips"><span class="chip">素養導向</span><span class="chip">探究教學</span><span class="chip">自主學習</span><span class="chip">跨域整合</span><span class="chip">數位學習</span><span class="chip">AI 教育</span></div><h2>改革不斷更新，<br>但我們真的<span class="question">找對問題</span>了嗎？</h2><p class="lead">學生的大腦，從來沒有因為教育改革而改變。</p></div><div class="footer"><span>回到學習機制</span></div></section>
+    <section class="slide"><div class="eyebrow">02 — 四種困難</div><div class="grid4"><article class="card"><span class="n a">01 MOTIVATION</span><h3>不想學</h3><p>動機系統沒有被啟動</p></article><article class="card"><span class="n b">02 UNDERSTANDING</span><h3>聽不懂</h3><p>工作記憶超載</p></article><article class="card"><span class="n c">03 MEMORY</span><h3>記不住</h3><p>沒有形成長期記憶</p></article><article class="card"><span class="n d">04 TRANSFER</span><h3>不會用</h3><p>沒有產生知識遷移</p></article></div><div class="footer"><span>所有困難，都能回到這四層</span></div></section>
+    <section class="slide"><div class="eyebrow a">03 — 動機</div><div class="split"><div class="stack"><h2>學生不想學</h2><p class="lead">沒有動機，大腦就不會主動分配注意力；資訊甚至沒有機會進入後續的認知歷程。</p><div class="rule"></div><p class="principle">教學的第一問：<strong>如何讓學生願意投入認知資源？</strong></p></div><div class="bigword a">想<br>學</div></div><div class="footer"><span>Motivation → Attention</span></div></section>
+    <section class="slide"><div class="eyebrow b">04 — 理解</div><div class="split"><div class="stack"><h2>學生想學，<br>但聽不懂</h2><p class="lead">資訊太多、概念跳太快、先備知識不足，有限的工作記憶很快就會超載。</p><div class="rule"></div><p class="principle"><strong>教得多 ≠ 學得多</strong><br>降低負荷，建立概念連結。</p></div><div class="bigword b">聽<br>懂</div></div><div class="footer"><span>Manage cognitive load</span></div></section>
+    <section class="slide"><div class="eyebrow c">05 — 記憶</div><div class="split"><div class="stack"><h2>學生聽得懂，<br>但記不住</h2><p class="lead">理解不代表學會。知識要經過提取練習、間隔複習與反覆重建，才能進入長期記憶。</p><div class="rule"></div><p class="principle">大腦不是錄影機。<br><strong>學習，是一次次重新提取。</strong></p></div><div class="bigword c">記<br>住</div></div><div class="footer"><span>Retrieve · Space · Rebuild</span></div></section>
+    <section class="slide"><div class="eyebrow d">06 — 遷移</div><div class="split"><div class="stack"><h2>學生記得住，<br>但不會用</h2><p class="lead">孤立的記憶無法因應新情境。只有理解概念背後的原理，才能形成可跨情境運作的心智表徵。</p><div class="rule"></div><p class="principle">教育真正培養的，<br><strong>不只是記憶，而是遷移能力。</strong></p></div><div class="bigword d">會<br>用</div></div><div class="footer"><span>Principle → New context</span></div></section>
+    <section class="slide"><div class="eyebrow">07 — 一條完整的學習路徑</div><div class="hero"><div class="flow"><div class="node a">動機</div><div class="arrow">→</div><div class="node b">理解</div><div class="arrow">→</div><div class="node c">記憶</div><div class="arrow">→</div><div class="node d">遷移</div></div><p class="lead" style="align-self:center;text-align:center">任何一環失效，都會表現成「學不好」。</p></div><div class="footer"><span>Motivation → Understanding → Memory → Transfer</span></div></section>
+    <section class="slide"><div class="eyebrow">08 — 改革的四個檢核問題</div><div class="check"><div class="a"><strong>願意開始嗎？</strong><span>是否提升學習動機與注意力？</span></div><div class="b"><strong>能夠理解嗎？</strong><span>是否降低認知負荷、建立概念連結？</span></div><div class="c"><strong>能夠記住嗎？</strong><span>是否安排提取、間隔與重建？</span></div><div class="d"><strong>能夠遷移嗎？</strong><span>是否讓知識跨情境運作？</span></div></div><div class="footer"><span>Policy & teaching checklist</span></div></section>
+    <section class="slide"><div class="eyebrow">09 — 結論</div><div class="hero"><p class="quote">真正需要改變的，<br>不是學生的大腦，<br>而是我們對<span class="question">學習本質</span>的理解。</p><p class="lead">所有教學、課程與政策，最後都應回到同一個問題：它是否符合大腦的學習機制？</p></div><div class="footer"><span>回到大腦，回到學習</span></div></section>
+  </main>
+  <div class="hint">← → / Space</div><div class="progress" aria-hidden="true"></div>
+  <script>
+    const slides=[...document.querySelectorAll('.slide')], bar=document.querySelector('.progress'); let current=0;
+    function show(i){current=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,n)=>{s.classList.toggle('active',n===current);s.setAttribute('aria-hidden',n!==current)});bar.style.width=`${(current+1)/slides.length*100}%`;location.hash=`${current+1}`}
+    addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1)});
+    addEventListener('click',e=>show(current+(e.clientX>innerWidth/2?1:-1)));
+    show(Math.max(0,(parseInt(location.hash.slice(1))||1)-1));
+  </script>
+</body>
+</html>
